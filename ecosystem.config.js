@@ -2,9 +2,7 @@ module.exports = {
     apps: [
         {
             name: "bookshow-frontend",
-            script: "npm",
-            interpreter: "none",
-            args: "start",
+            script: 'serve -s build',
             env: {
                 PORT: 3007
             }
