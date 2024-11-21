@@ -51,7 +51,7 @@ const Ticket = () => {
 
           </InfoDetails>
           <DottedDivider />
-          <QrCode src="https://pngimg.com/uploads/qr_code/qr_code_PNG10.png" alt="QR Code" />
+          <QrCode src="qr-code.jpeg" alt="QR Code" />
         </TicketContainer>
         <Footer>
           <img src="/footer-fram.png" alt="Footer Frame" />
@@ -73,7 +73,6 @@ const Container = styled.div`
     text-align: start;
     align-items: center;
     justify-content: center;
-    height: 100vw;
 `;
 
 const TicketContainer = styled.div`
@@ -101,14 +100,14 @@ const TicketContainer = styled.div`
 
   &::before {
     left: -20px;
-    top: 56%;
+    top: 50%;
     box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.25);
     // box-shadow: inset 1px 1px 8px -2px rgba(0, 0, 0, 0.55);
   }
 
   &::after {
     right: -20px;
-    top: 56%;
+    top: 50%;
     box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.25);
     // box-shadow: inset 1px 1px 8px -2px rgba(0, 0, 0, 0.55);
   }
