@@ -62,8 +62,11 @@ const BookTicket = () => {
         <Footer>
           <FooterImg src="/footer-fram.png" alt="Footer Frame" />
           <a href="https://www.repozitory.com/#contact_us" target='blank'>
-            <PowerBy>Contact Repozitory if you need a ticketing solution.</PowerBy>
+            <PowerBy>Contact Repozitory</PowerBy>
           </a>
+          <p style={{
+            color: "rgb(168 168 168)"
+          }}>* If you need a ticketing solution *</p>
         </Footer>
       </Container>
     </div>
@@ -293,12 +296,14 @@ const Footer = styled.div`
 const PowerBy = styled.div`
   color: #0089EB;
   margin-top: 10px;
-  @media (max-width: ${breakpoints.tablet}) {
     font-size: 18px;
+    font-size: 18px;
+  }
+  font-size: 18px;
   }
 
   @media (max-width: ${breakpoints.mobile}) {
-    font-size: 14px;
+    font-size: 16px;
   }
 `;
 
