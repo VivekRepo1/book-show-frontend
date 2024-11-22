@@ -23,7 +23,7 @@ const Ticket = () => {
       .catch(error => {
         console.error('Error:', error);
       });
-  }, []);
+  }, [id]);
 
 
   return (
@@ -32,8 +32,15 @@ const Ticket = () => {
         <TicketContainer>
           <Title>Sangini Presents - A stand up comedy show</Title>
           <TicketInfo>
-            <p><MdDateRange /> 10th January, 2025   <IoMdTime /> 10:00AM - 1:00PM</p>
-            <p><CiLocationOn /> Midtown Grand, Hisar, HR</p>
+            <Info>
+              <span>
+                <MdDateRange /> 10th January, 2025
+              </span>
+              <span>
+                <IoMdTime /> 10:00AM - 1:00PM
+              </span>
+            </Info>
+            <Place><CiLocationOn /> Midtown Grand, Hisar, HR</Place>
           </TicketInfo>
           <SolidDivider />
           <InfoDetails>
@@ -51,10 +58,10 @@ const Ticket = () => {
 
           </InfoDetails>
           <DottedDivider />
-          <QrCode src="qr-code.jpeg" alt="QR Code" />
+          <QrCode src={userInfo.qrCode} alt="QR Code" />
         </TicketContainer>
         <Footer>
-          <img src="/footer-fram.png" alt="Footer Frame" />
+          <FooterImg src="/footer-fram.png" alt="Footer Frame" />
           <a href="https://www.repozitory.com/" target='blank'>
             <PowerBy>Powered by Repozitory</PowerBy>
           </a>
@@ -66,13 +73,18 @@ const Ticket = () => {
 
 export default Ticket;
 
+const breakpoints = {
+  mobile: '480px',  // Mobile devices
+  tablet: '768px',  // Tablet devices
+};
 
 const Container = styled.div`
-    display: flex;
-    flex-direction: column;
-    text-align: start;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  flex-direction: column;
+  text-align: start;
+  align-items: center;
+  justify-content: center;
+  margin: 40px;
 `;
 
 const TicketContainer = styled.div`
@@ -86,12 +98,22 @@ const TicketContainer = styled.div`
   overflow: hidden;
   box-shadow: 0px 4px 10px 0px #00000026;
 
+  @media (max-width: ${breakpoints.tablet}) {
+    width: 300px;
+    border-radius: 10px;
+  }
+
+  @media (max-width: ${breakpoints.mobile}) {
+    width: 250px;
+    border-radius: 10px;
+  }
+
   &::before,
   &::after {
     content: '';
     position: absolute;
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     background-color: white;
     border: 2px solid #fff;
@@ -100,16 +122,37 @@ const TicketContainer = styled.div`
 
   &::before {
     left: -20px;
-    top: 50%;
-    box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.25);
-    // box-shadow: inset 1px 1px 8px -2px rgba(0, 0, 0, 0.55);
+    top: 56%;
+    // box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.25);
+    box-shadow: inset 0px 0px 11px -2px #bab4b4;
+    @media (max-width: ${breakpoints.tablet}) {
+      top: 62%;
+      width: 45px;
+      height: 45px;
+    }
+
+    @media (max-width: ${breakpoints.mobile}) {
+      top: 63%;
+      width: 40px;
+      height: 40px;
+    }
   }
 
   &::after {
     right: -20px;
-    top: 50%;
-    box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.25);
-    // box-shadow: inset 1px 1px 8px -2px rgba(0, 0, 0, 0.55);
+    top: 56%;
+    box-shadow: inset 0px 0px 11px -2px #bab4b4;
+    @media (max-width: ${breakpoints.tablet}) {
+      top: 62%;
+      width: 45px;
+      height: 45px;
+    }
+
+    @media (max-width: ${breakpoints.mobile}) {
+      top: 63%;
+      width: 40px;
+      height: 40px;
+    }
   }
 `;
 
@@ -118,6 +161,48 @@ const Title = styled.div`
   line-height: 30px;
   font-weight: 600;
   color: #313030;
+  margin-bottom: 30px;
+  @media (max-width: ${breakpoints.tablet}) {
+    font-size: 18px;
+    margin-bottom: 20px;
+  }
+
+  @media (max-width: ${breakpoints.mobile}) {
+    font-size: 18px;
+    margin-bottom: 20px;
+  }
+`;
+
+const Info = styled.div`
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  & span {
+    gap: 5px;
+    margin: 0 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    @media (max-width: ${breakpoints.mobile}) {
+      font-size: 14px;
+    }
+  }
+  @media (max-width: ${breakpoints.tablet}) {
+    flex-direction: column;
+    font-size: 16px;
+  }
+
+  @media (max-width: ${breakpoints.mobile}) {
+    flex-direction: column;
+    font-size: 14px;
+    gap: 16px;
+  }
+`;
+
+const Place = styled.p`
+  font-size: 14px;
 `;
 
 const SolidDivider = styled.div`
@@ -127,7 +212,7 @@ const SolidDivider = styled.div`
 
 const DottedDivider = styled.div`
   border-top: 1px dashed #CCCCCC;
-  margin-top: 25px;
+  margin-top: 35px;
 `;
 
 const InfoDetails = styled.div`
@@ -147,38 +232,79 @@ const UserInfo = styled.div`
 `;
 
 const Label = styled.p`
-    color: #827f7f;
-    font-size: 16px;
-    font-weight: 300;
+  color: #827f7f;
+  font-size: 16px;
+  font-weight: 300;
+  @media (max-width: ${breakpoints.tablet}) {
+    font-size: 14px;
+  }
+
+  @media (max-width: ${breakpoints.mobile}) {
+    font-size: 12px;
+  }
 `;
 
 const Detail = styled.div<{ $isZone?: boolean }>`
-    display: flex;
-    flex-direction: column;
-    align-items: baseline;
-    line-height: 10px;
-    font-size: 18px;
-    color: #313030;
-    width: ${({ $isZone }) => ($isZone ? '32%' : 'auto')};
-    font-weight: 500;
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
+  line-height: 10px;
+  font-size: 18px;
+  color: #313030;
+  width: ${({ $isZone }) => ($isZone ? '32%' : 'auto')};
+  font-weight: 500;
+
+  @media (max-width: ${breakpoints.tablet}) {
+    font-size: 16px;
+  }
+
+  @media (max-width: ${breakpoints.mobile}) {
+    font-size: 14px;
+  }
 `;
 
 const QrCode = styled.img`
-    width: 200px;
-    height: 200px;
-    margin: 20px 0px;
-    border: 1px solid #CCCCCC;
-    border-radius: 4px;
+  width: 200px;
+  height: 200px;
+  margin: 20px 0px;
+  border: 1px solid #CCCCCC;
+  border-radius: 4px;
+  @media (max-width: ${breakpoints.tablet}) {
+    width: 150px;
+    height: 150px;
+  }
+
+  @media (max-width: ${breakpoints.mobile}) {
+    width: 130px;
+    height: 130px;
+  }
 `;
 
 const Footer = styled.div`
-    margin-top: 25px;
-    align-items: center;
-    display: flex;
-    flex-direction: column;
+  margin-top: 25px;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
 `;
 
 const PowerBy = styled.div`
-    color: #0089EB;
-    margin-top: 10px;
+  color: #0089EB;
+  margin-top: 10px;
+  @media (max-width: ${breakpoints.tablet}) {
+    font-size: 18px;
+  }
+
+  @media (max-width: ${breakpoints.mobile}) {
+    font-size: 14px;
+  }
+`;
+
+const FooterImg = styled.img`
+  @media (max-width: ${breakpoints.tablet}) {
+    width: 200px;
+  }
+
+  @media (max-width: ${breakpoints.mobile}) {
+    width: 150px;
+  }
 `;
