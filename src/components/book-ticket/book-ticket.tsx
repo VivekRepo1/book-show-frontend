@@ -5,12 +5,12 @@ import { CiLocationOn } from "react-icons/ci";
 import { MdDateRange } from "react-icons/md";
 import { useParams } from 'react-router-dom';
 
-const Ticket = () => {
+const BookTicket = () => {
   const { id } = useParams<{ id: string }>();
   const [userInfo, setUserInfo] = useState<any>({});
 
   useEffect(() => {
-    fetch(`http://www.bookshow.online/api/reservation/${id}`)
+    fetch(`https://www.bookshow.online/api/reservation/${id}`)
       .then(response => {
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
@@ -55,7 +55,6 @@ const Ticket = () => {
             <UserInfo>
               {userInfo?.tickets?.length && <Detail><Label>Seat no</Label> {userInfo?.tickets[0]?.seatNumber}</Detail>}
             </UserInfo>
-
           </InfoDetails>
           <DottedDivider />
           <QrCode src={userInfo.qrCode} alt="QR Code" />
@@ -71,7 +70,7 @@ const Ticket = () => {
   )
 };
 
-export default Ticket;
+export default BookTicket;
 
 const breakpoints = {
   mobile: '480px',  // Mobile devices
@@ -84,14 +83,14 @@ const Container = styled.div`
   text-align: start;
   align-items: center;
   justify-content: center;
-  margin: 40px;
+  margin: 10px;
 `;
 
 const TicketContainer = styled.div`
   width: 350px;
   border: 2px solid #fff;
   border-radius: 20px;
-  padding: 20px;
+  padding: 10px 20px;
   position: relative;
   background-color: white;
   text-align: center;
@@ -121,8 +120,8 @@ const TicketContainer = styled.div`
   }
 
   &::before {
-    left: -20px;
-    top: 56%;
+    left: -25px;
+    top: 60%;
     // box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.25);
     box-shadow: inset 0px 0px 11px -2px #bab4b4;
     @media (max-width: ${breakpoints.tablet}) {
@@ -132,15 +131,15 @@ const TicketContainer = styled.div`
     }
 
     @media (max-width: ${breakpoints.mobile}) {
-      top: 63%;
+      top: 60%;
       width: 40px;
       height: 40px;
     }
   }
 
   &::after {
-    right: -20px;
-    top: 56%;
+    right: -25px;
+    top: 60%;
     box-shadow: inset 0px 0px 11px -2px #bab4b4;
     @media (max-width: ${breakpoints.tablet}) {
       top: 62%;
@@ -149,7 +148,7 @@ const TicketContainer = styled.div`
     }
 
     @media (max-width: ${breakpoints.mobile}) {
-      top: 63%;
+      top: 60%;
       width: 40px;
       height: 40px;
     }
@@ -161,15 +160,16 @@ const Title = styled.div`
   line-height: 30px;
   font-weight: 600;
   color: #313030;
-  margin-bottom: 30px;
+  margin-bottom: 15px;
   @media (max-width: ${breakpoints.tablet}) {
     font-size: 18px;
     margin-bottom: 20px;
   }
 
   @media (max-width: ${breakpoints.mobile}) {
-    font-size: 18px;
-    margin-bottom: 20px;
+    font-size: 16px;
+    margin-bottom: 10px;
+    line-height: 20px;
   }
 `;
 
@@ -197,17 +197,19 @@ const Info = styled.div`
   @media (max-width: ${breakpoints.mobile}) {
     flex-direction: column;
     font-size: 14px;
-    gap: 16px;
+    gap: 10px;
   }
 `;
 
 const Place = styled.p`
   font-size: 14px;
+  @media (max-width: ${breakpoints.mobile}) {
+    margin: 8px;
+  }
 `;
 
 const SolidDivider = styled.div`
   border-top: 1px solid #CCCCCC;
-  margin: 10px 0;
 `;
 
 const DottedDivider = styled.div`
@@ -216,15 +218,12 @@ const DottedDivider = styled.div`
 `;
 
 const InfoDetails = styled.div`
-  margin: 10px 0;
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 5px;
 `;
 
-const TicketInfo = styled.div`
-  margin: 10px 0;
-`;
+const TicketInfo = styled.div``;
 
 const UserInfo = styled.div`
   display: flex;
@@ -251,7 +250,7 @@ const Detail = styled.div<{ $isZone?: boolean }>`
   line-height: 10px;
   font-size: 18px;
   color: #313030;
-  width: ${({ $isZone }) => ($isZone ? '32%' : 'auto')};
+  width: ${({ $isZone }) => ($isZone ? '31%' : 'auto')};
   font-weight: 500;
 
   @media (max-width: ${breakpoints.tablet}) {
@@ -260,13 +259,14 @@ const Detail = styled.div<{ $isZone?: boolean }>`
 
   @media (max-width: ${breakpoints.mobile}) {
     font-size: 14px;
+    width: ${({ $isZone }) => ($isZone ? '33%' : 'auto')};
   }
 `;
 
 const QrCode = styled.img`
-  width: 200px;
-  height: 200px;
-  margin: 20px 0px;
+  width: 160px;
+  height: 160px;
+  margin-top: 20px;
   border: 1px solid #CCCCCC;
   border-radius: 4px;
   @media (max-width: ${breakpoints.tablet}) {
@@ -275,8 +275,9 @@ const QrCode = styled.img`
   }
 
   @media (max-width: ${breakpoints.mobile}) {
-    width: 130px;
-    height: 130px;
+    width: 150px;
+    height: 150px;
+    margin-top: 10px;
   }
 `;
 
@@ -285,6 +286,9 @@ const Footer = styled.div`
   align-items: center;
   display: flex;
   flex-direction: column;
+  @media (max-width: ${breakpoints.mobile}) {
+    margin-top: 10px;
+  }
 `;
 
 const PowerBy = styled.div`
