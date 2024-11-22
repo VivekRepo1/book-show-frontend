@@ -266,7 +266,7 @@ const Detail = styled.div<{ $isZone?: boolean }>`
 const QrCode = styled.img`
   width: 160px;
   height: 160px;
-  margin-top: 20px;
+  margin-top: 10px;
   border: 1px solid #CCCCCC;
   border-radius: 4px;
   @media (max-width: ${breakpoints.tablet}) {
@@ -277,7 +277,6 @@ const QrCode = styled.img`
   @media (max-width: ${breakpoints.mobile}) {
     width: 150px;
     height: 150px;
-    margin-top: 10px;
   }
 `;
 
