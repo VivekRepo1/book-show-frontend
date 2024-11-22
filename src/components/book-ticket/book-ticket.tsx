@@ -61,8 +61,8 @@ const BookTicket = () => {
         </TicketContainer>
         <Footer>
           <FooterImg src="/footer-fram.png" alt="Footer Frame" />
-          <a href="https://www.repozitory.com/" target='blank'>
-            <PowerBy>Powered by Repozitory</PowerBy>
+          <a href="https://www.repozitory.com/#contact_us" target='blank'>
+            <PowerBy>Contact Repozitory if you need a ticketing solution.</PowerBy>
           </a>
         </Footer>
       </Container>
