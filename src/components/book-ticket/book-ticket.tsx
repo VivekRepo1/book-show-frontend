@@ -61,12 +61,12 @@ const BookTicket = () => {
         </TicketContainer>
         <Footer>
           <FooterImg src="/footer-fram.png" alt="Footer Frame" />
-          <a href="https://www.repozitory.com/#contact_us" target='blank'>
-            <PowerBy>Contact Repozitory</PowerBy>
-          </a>
-          <p style={{
-            color: "rgb(168 168 168)"
-          }}>* If you need a ticketing solution *</p>
+          <PoweredByHyperLink href="https://www.repozitory.com/#contact_us" target='blank'>
+            <PowerBy>Powered by Repozitory</PowerBy>
+          </PoweredByHyperLink>
+          <ContactUsMessage>
+            Contact <a href="tel:+919034269099">+919034269099</a> for your shows and events ticketing solution
+          </ContactUsMessage>
         </Footer>
       </Container>
     </div>
@@ -288,22 +288,23 @@ const Footer = styled.div`
   align-items: center;
   display: flex;
   flex-direction: column;
+  margin-top: 1.8rem;
   @media (max-width: ${breakpoints.mobile}) {
-    margin-top: 10px;
+    margin-top: 1.8rem;
   }
 `;
 
 const PowerBy = styled.div`
+  font-size: 0.85rem;
+  text-decoration: underline;
+  margin: 0;
+  margin-top: 2px;
   color: #0089EB;
-  margin-top: 10px;
-    font-size: 18px;
-    font-size: 18px;
-  }
-  font-size: 18px;
-  }
+  font-size: 16px;
 
   @media (max-width: ${breakpoints.mobile}) {
-    font-size: 16px;
+    font-size: 0.85rem;
+    margin-top: 0px;
   }
 `;
 
@@ -313,6 +314,19 @@ const FooterImg = styled.img`
   }
 
   @media (max-width: ${breakpoints.mobile}) {
-    width: 150px;
+    width: 162px;
   }
+`;
+
+const PoweredByHyperLink = styled.a`
+  margin-top: 0.5rem;
+`;
+
+const ContactUsMessage = styled.p`
+  color: rgb(168, 168, 168);
+  text-align: center;
+  font-size: 0.9rem;
+  max-width: 17rem;
+  font-weight: 500;
+  margin-block: 0.9rem 1rem;
 `;
