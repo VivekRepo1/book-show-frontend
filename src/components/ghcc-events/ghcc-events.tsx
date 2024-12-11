@@ -138,13 +138,13 @@ const TicketContainer = styled.div`
     // box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.25);
     box-shadow: inset 0px 0px 11px -2px #bab4b4;
     @media (max-width: ${breakpoints.tablet}) {
-      top: 62%;
+      top: 53%;
       width: 45px;
       height: 45px;
     }
 
     @media (max-width: ${breakpoints.mobile}) {
-      top: 60%;
+      top: 49%;
       width: 40px;
       height: 40px;
     }
@@ -155,13 +155,13 @@ const TicketContainer = styled.div`
     top: 50%;
     box-shadow: inset 0px 0px 11px -2px #bab4b4;
     @media (max-width: ${breakpoints.tablet}) {
-      top: 62%;
+      top: 53%;
       width: 45px;
       height: 45px;
     }
 
     @media (max-width: ${breakpoints.mobile}) {
-      top: 60%;
+      top: 49%;
       width: 40px;
       height: 40px;
     }
