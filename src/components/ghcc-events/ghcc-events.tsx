@@ -58,8 +58,8 @@ const GhccEvents = () => {
               <Detail><Label>Phone number</Label> {userInfo?.phoneNo}</Detail>
             </UserInfo>
             <UserInfo>
-              <Detail><Label>Number of Tickets</Label> {userInfo?.numberOfTickets}</Detail>
-              <Detail $isZone={true}><Label>Total amount</Label> {userInfo?.amount}</Detail>
+              <Detail><Label>Number of Tickets</Label> {userInfo?.sponsored ? 'N/A' : userInfo?.numberOfTickets}</Detail>
+              <Detail $isZone={true}><Label>Total amount</Label> {userInfo?.sponsored ? 'Sponsored' : userInfo?.amount}</Detail>
             </UserInfo>
           </InfoDetails>
           <DottedDivider />
