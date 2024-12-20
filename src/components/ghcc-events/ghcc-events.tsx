@@ -46,7 +46,7 @@ const GhccEvents = () => {
                 <MdDateRange /> 21th Dec, 2024
               </span>
               <span>
-                <IoMdTime /> 09:00 AM
+                <IoMdTime /> 10:00 AM
               </span>
             </Info>
             <Place><CiLocationOn /> Ch. Ranbir Singh Auditorium, <br /> GJU, Hisar</Place>
