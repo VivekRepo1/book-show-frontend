@@ -25,13 +25,14 @@ const EventCard = ({
   location,
   price,
   buttonLabel,
+  bookingUrl,
 }: any) => {
   const navigate = useNavigate();
 
   const handleBuyTicket = (e: any) => {
     e.stopPropagation();
-    navigate(`/choose-ticket/${eventId}`);
-  }
+    window.open(`${bookingUrl}`, "_blank");
+  };
 
   return (
     <CardContainer onClick={() => navigate(`/event/${eventId}`)}>

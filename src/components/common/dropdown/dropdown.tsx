@@ -41,11 +41,17 @@ const Dropdown = ({
 
   return (
     <DropdownContainer ref={dropdownRef} onClick={toggleDropdown}>
-      <DropdownText>{selectedValue || label}</DropdownText>
+      <DropdownText $isPlaceholder={!selectedValue}>
+        {selectedValue || label}
+      </DropdownText>
       {isOpen ? <IoIosArrowUp size={15} /> : <MdOutlineKeyboardArrowDown size={20} />}
       <OptionsList $isOpen={isOpen}>
         {options.map((option, index) => (
-          <Option key={index} onClick={(e) => handleSelect(e, option)}>
+          <Option
+            key={index}
+            onClick={(e) => handleSelect(e, option)}
+            $isSelected={selectedValue === option}
+          >
             {option}
           </Option>
         ))}
@@ -70,15 +76,14 @@ const DropdownContainer = styled.div`
   transition: all 0.3s ease;
 `;
 
-const DropdownText = styled.span`
-  color: #78818f;
-  font-size: 14px;
+const DropdownText = styled.span<{ $isPlaceholder: boolean }>`
+  font-size: ${({ $isPlaceholder }) => ($isPlaceholder ? "14px" : "14px")};
+  color: ${({ $isPlaceholder }) => ($isPlaceholder ? "#b0b0b0" : "#333")};
 `;
 
 const OptionsList = styled.ul<{ $isOpen: boolean }>`
   position: absolute;
   top: 100%;
-  // left: -15px;
   font-size: 14px;
   background: white;
   border: 1px solid #ddd;
@@ -96,9 +101,12 @@ const OptionsList = styled.ul<{ $isOpen: boolean }>`
   transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out, visibility 0.2s;
 `;
 
-const Option = styled.li`
+const Option = styled.li<{ $isSelected: boolean }>`
   padding: 8px 16px;
   cursor: pointer;
+  background: ${({ $isSelected }) => ($isSelected ? "#e6f7ff" : "white")};
+  color: ${({ $isSelected }) => ($isSelected ? "#007BFF" : "#333")};
+  font-weight: ${({ $isSelected }) => ($isSelected ? "bold" : "normal")};
 
   &:hover {
     background: #f0f0f0;

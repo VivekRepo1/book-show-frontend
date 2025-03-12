@@ -1,14 +1,12 @@
 import styled from 'styled-components';
 
-const CommingSoon = () => {
-  return (
-    <ComingSoonContainer>
-      <ComingSoonText>Coming Soon...</ComingSoonText>
-    </ComingSoonContainer>
-  );
-};
+const ComingSoon = () => (
+  <ComingSoonContainer>
+    <ComingSoonText>Coming Soon...</ComingSoonText>
+  </ComingSoonContainer>
+);
 
-export default CommingSoon;
+export default ComingSoon;
 
 const ComingSoonContainer = styled.div`
   display: flex;

@@ -1,18 +1,19 @@
-import { createContext, useContext, useState, useMemo } from "react";
+import { createContext, useContext, useState } from "react";
 
-import { EVENTS_DATA } from "../constants";
+// import { EVENTS_DATA } from "../constants";
 
 interface EventFilters {
     searchQuery: string;
-    location: string;
+    city: string;
     category: string;
-    date: string;
+    startTime: string;
+    endTime: string;
 }
 
 interface EventFilterContextType {
     filters: EventFilters;
     setFilters: (updates: Partial<EventFilters>) => void;
-    filteredEvents: typeof EVENTS_DATA;
+    // filteredEvents: typeof EVENTS_DATA;
 }
 
 const EventFilterContext = createContext<EventFilterContextType | undefined>(undefined);
@@ -20,27 +21,29 @@ const EventFilterContext = createContext<EventFilterContextType | undefined>(und
 export const EventFilterProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const [filters, setFiltersState] = useState<EventFilters>({
         searchQuery: "",
-        location: "",
+        city: "",
         category: "",
-        date: "",
+        startTime: "",
+        endTime: "",
     });
 
     const setFilters = (updates: Partial<EventFilters>) => {
         setFiltersState(prev => ({ ...prev, ...updates }));
     };
 
-    const filteredEvents = useMemo(() => {
-        return EVENTS_DATA.filter(event => {
-            return (
-                (!filters.category || event.category === filters.category) &&
-                (!filters.location || event.location.includes(filters.location)) &&
-                (!filters.searchQuery || event.title.toLowerCase().includes(filters.searchQuery.toLowerCase()))
-            );
-        });
-    }, [filters]);
+    // const filteredEvents = useMemo(() => {
+    //     return EVENTS_DATA.filter(event => {
+    //         return (
+    //             (!filters.category || event.category === filters.category) &&
+    //             (!filters.isoDate || event.isoDate === filters.isoDate) &&
+    //             (!filters.location || event.location.includes(filters.location)) &&
+    //             (!filters.searchQuery || event.title.toLowerCase().includes(filters.searchQuery.toLowerCase()))
+    //         );
+    //     });
+    // }, [filters]);
 
     return (
-        <EventFilterContext.Provider value={{ filters, setFilters, filteredEvents }}>
+        <EventFilterContext.Provider value={{ filters, setFilters }}>
             {children}
         </EventFilterContext.Provider>
     );

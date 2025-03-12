@@ -1,16 +1,28 @@
-import styled from "styled-components";
+import { useQuery } from "@tanstack/react-query";
 
+import { formatDateAndTime } from "../../../constants";
 import EventCard from "../../../common/event-card/event-card";
 import { useEventFilter } from "../../../context/event-filter-context";
+import { EventService } from "../../../../service/event-service";
+import { Container, EmptyMessage, GridContainer, Loader, LoaderWrapper, SubContainer, Title } from "./styles";
 
 const UpcomingEvent = () => {
-  const { filteredEvents } = useEventFilter();
+  const { filters } = useEventFilter();
 
-  if (filteredEvents.length === 0) {
+  const eventService = new EventService();
+
+  const { data: filterEvents, isFetching } = useQuery({
+    queryKey: ["get-events", filters],
+    queryFn: () => eventService.getAll(filters),
+    enabled: !!filters,
+  });
+
+  if (isFetching) {
     return (
-      <Container>
-        <EmptyMessage>No upcoming events available</EmptyMessage>
-      </Container>
+      <LoaderWrapper>
+        <Loader />
+        <p>Loading...</p>
+      </LoaderWrapper>
     );
   }
 
@@ -18,80 +30,33 @@ const UpcomingEvent = () => {
     <Container>
       <SubContainer>
         <Title>Upcoming Events</Title>
-        <GridContainer>
-          {filteredEvents.map(event => (
-            <EventCard
-              key={event.id}
-              eventId={event.id}
-              imageUrl={event.imageUrl}
-              category={event.category}
-              title={event.title}
-              date={event.date}
-              time={event.time}
-              location={event.location}
-              price={event.price}
-              buttonLabel="Buy Ticket"
-            />
-          ))}
+        {filterEvents?.length !== 0 ? <GridContainer>
+          {filterEvents
+            ?.filter(event => event.isPublic === false)
+            .map(event => {
+              console.log(" HELLO EEEEEEEEEEeee ", event.bookingUrl);
+              return (
+                <EventCard
+                  key={event._id}
+                  eventId={event._id}
+                  imageUrl={event?.images?.banner}
+                  category={event.category}
+                  title={`${event.title} | ${event.venue.city}`}
+                  date={formatDateAndTime(event.startTime, "month")}
+                  time={`${formatDateAndTime(event.startTime, "time")}
+                ${event.endTime ? ` - ${formatDateAndTime(event.endTime, "time")}` : ""}`}
+                  location={`${event.venue.address}, ${event.venue.city}`}
+                  price={event.price}
+                  bookingUrl={event.bookingUrl}
+                  buttonLabel="Buy Ticket"
+                />
+              )
+            })}
         </GridContainer>
+          : <EmptyMessage>No upcoming events available</EmptyMessage>}
       </SubContainer>
     </Container>
   );
 };
 
 export default UpcomingEvent;
-
-const Container = styled.div`
-  width: 100%;
-  justify-content: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 40px;
-`;
-
-const SubContainer = styled.div`
-  position: relative;
-  width: 90%;
-  overflow: hidden;
-  padding-bottom: 40px;
-`;
-
-const Title = styled.h2`
-  font-size: 22px;
-  font-weight: bold;
-  color: #283F93;
-  margin-bottom: 20px;
-`;
-
-const GridContainer = styled.div`
-  display: grid;
-  gap: 20px;
-  justify-content: center;
-  align-items: center;
-
-  grid-template-columns: 1fr;
-
-  @media (min-width: 600px) {
-    grid-template-columns: repeat(2, 1fr); 
-  }
-
-  @media (min-width: 1024px) {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  & > * {
-    width: 100%;
-  }
-`;
-
-const EmptyMessage = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 200px;
-  font-size: 18px;
-  font-weight: bold;
-  color: #555;
-  text-align: center;
-`;

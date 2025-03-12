@@ -6,7 +6,7 @@ import { GrLocation } from "react-icons/gr";
 import { GoArrowLeft } from "react-icons/go";
 
 import TicketCard from './ticket-card/ticket-card';
-import { EVENTS_DATA, TICKET_TYPES } from '../constants';
+import { EVENTS_DATA, TICKET_TYPES } from '../../../constants';
 import {
     Container,
     DateAndTime,

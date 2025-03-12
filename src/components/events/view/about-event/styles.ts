@@ -68,10 +68,6 @@ export const InfoBoxIcon = styled.div`
   color: #555;
 `;
 
-export const Image = styled.img`
-  color: #5E5E5E;
-`;
-
 export const InfoBoxText = styled.div`
   display: flex;
   flex-direction: column;
@@ -106,7 +102,11 @@ export const VenueContainer = styled.div`
   }
 `;
 
-export const Location = styled.div``;
+export const Location = styled.div`
+  width: 75%;
+  line-height: 22px;
+  font-size: 14px;
+`;
 
 export const Direction = styled.div`
   border: 1px solid #283F93;

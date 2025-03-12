@@ -12,6 +12,7 @@ import {
     ConfirmationCard,
     Container,
     ContinueButton,
+    ErrorMessage,
     FormContainer,
     FormField,
     FormGrid,
@@ -29,7 +30,6 @@ import {
 const PurchaseTickets = () => {
     const navigate = useNavigate();
 
-    // State for form fields
     const [formData, setFormData] = useState({
         name: '',
         phone: '',
@@ -39,27 +39,84 @@ const PurchaseTickets = () => {
         termsAccepted: false,
     });
 
+    const [errors, setErrors] = useState({
+        name: '',
+        phone: '',
+        email: '',
+        city: '',
+        state: '',
+        termsAccepted: '',
+    });
+
+    const nameRegex = /^[A-Za-z\s]{1,}$/;
+    const cityStateRegex = /^[A-Za-z\s\,-]{1,}$/;
+    const phoneRegex = /^[0-9]{10}$/;
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+    const validateField = (name: string, value: string | boolean) => {
+        let errorMsg = '';
+
+        switch (name) {
+            case 'name':
+                if (!nameRegex.test(value as string)) {
+                    errorMsg = 'Name is Required.';
+                }
+                break;
+
+            case 'phone':
+                if (!phoneRegex.test(value as string)) {
+                    errorMsg = 'Phone number must be exactly 10 digits.';
+                }
+                break;
+
+            case 'email':
+                if (!emailRegex.test(value as string)) {
+                    errorMsg = 'Please enter a valid email address.';
+                }
+                break;
+
+            case 'city':
+                if (!cityStateRegex.test(value as string)) {
+                    errorMsg = 'City is Required.';
+                }
+                break;
+
+            case 'state':
+                if (!cityStateRegex.test(value as string)) {
+                    errorMsg = 'State is Required.';
+                }
+                break;
+
+            case 'termsAccepted':
+                if (!value) {
+                    errorMsg = 'You must accept the terms and conditions.';
+                }
+                break;
+
+            default:
+                break;
+        }
+
+        setErrors((prevErrors) => ({
+            ...prevErrors,
+            [name]: errorMsg
+        }));
+    };
+
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value, type, checked } = e.target;
+        const newValue = type === 'checkbox' ? checked : value.trimStart();
         setFormData({
             ...formData,
             [name]: type === 'checkbox' ? checked : value.replace(/^\s+/, ''),
         });
-    };
-
-    const isFormValid = () => {
-        return (
-            formData.name.trim() !== '' &&
-            formData.phone.trim() !== '' &&
-            formData.email.trim() !== '' &&
-            formData.city.trim() !== '' &&
-            formData.state.trim() !== '' &&
-            formData.termsAccepted
-        );
+        validateField(name, newValue);
     };
 
     const handleContinue = () => {
-        if (isFormValid()) {
+        const hasErrors = Object.values(errors).some(error => error !== '');
+        const isFormComplete = Object.values(formData).every(value => value !== '' && value !== false);
+        if (!hasErrors && isFormComplete) {
             navigate("/confirmation");
         } else {
             alert("Please fill out all fields and accept the terms.");
@@ -91,7 +148,10 @@ const PurchaseTickets = () => {
                                     placeholder="Name"
                                     value={formData.name}
                                     onChange={handleInputChange}
+                                    $hasError={!!errors.name}
                                 />
+                                {errors.name && <ErrorMessage>{errors.name}</ErrorMessage>}
+
                             </FormField>
 
                             <FormField>
@@ -102,7 +162,10 @@ const PurchaseTickets = () => {
                                     placeholder="Phone Number"
                                     value={formData.phone}
                                     onChange={handleInputChange}
+                                    $hasError={!!errors.phone}
                                 />
+                                {errors.phone && <ErrorMessage>{errors.phone}</ErrorMessage>}
+
                             </FormField>
 
                             <FullWidthField>
@@ -113,7 +176,10 @@ const PurchaseTickets = () => {
                                     placeholder="abc@example.com"
                                     value={formData.email}
                                     onChange={handleInputChange}
+                                    $hasError={!!errors.email}
                                 />
+                                {errors.email && <ErrorMessage>{errors.email}</ErrorMessage>}
+
                                 <SmallText>E-tickets will be sent to this email address</SmallText>
                             </FullWidthField>
 
@@ -125,7 +191,10 @@ const PurchaseTickets = () => {
                                     placeholder="City"
                                     value={formData.city}
                                     onChange={handleInputChange}
+                                    $hasError={!!errors.city}
                                 />
+                                {errors.city && <ErrorMessage>{errors.city}</ErrorMessage>}
+
                             </FormField>
 
                             <FormField>
@@ -136,7 +205,10 @@ const PurchaseTickets = () => {
                                     placeholder="State"
                                     value={formData.state}
                                     onChange={handleInputChange}
+                                    $hasError={!!errors.state}
                                 />
+                                {errors.state && <ErrorMessage>{errors.state}</ErrorMessage>}
+
                             </FormField>
                         </FormGrid>
 
@@ -156,7 +228,7 @@ const PurchaseTickets = () => {
                         <ContinueButton
                             type="button"
                             onClick={handleContinue}
-                            disabled={!isFormValid()}
+                            disabled={Object.values(errors).some(error => error !== '') || Object.values(formData).some(value => value === '' || value === false)}
                         >
                             Continue
                         </ContinueButton>

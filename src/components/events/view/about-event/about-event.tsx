@@ -2,14 +2,14 @@ import { useState } from 'react';
 import { CiLocationOn } from "react-icons/ci";
 import { SlArrowDown } from "react-icons/sl";
 import { SlArrowUp } from "react-icons/sl";
+import { IoLanguageOutline } from "react-icons/io5";
+import { FaPeopleRobbery } from "react-icons/fa6";
 
-import { TERMS_AND_CONDITIONS } from '../../../constants';
 import {
   Container,
   Direction,
   ExpendIcon,
   Header,
-  Image,
   InfoBox,
   InfoBoxes,
   InfoBoxIcon,
@@ -26,54 +26,51 @@ import {
   VenueContainer
 } from './styles';
 
-const AboutEvent = () => {
+const AboutEvent = ({ event }: any) => {
   const [isExpanded, setIsExpanded] = useState(false);
+
+  const goToDirection = () => {
+    const placeName = encodeURIComponent(`${event?.venue?.address}, ${event?.venue?.city}`);
+    const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${placeName}`;
+
+    window.open(mapsUrl, "_blank");
+  };
 
   return (
     <Container>
 
       <Section $isConditions={false}>
         <SectionTitle>About the event</SectionTitle>
-        <Text>
-          Wonder Girls was a South Korean girl group formed by JYP Entertainment.
-          The group debuted in February 2007 with the single "Irony" and 5 members: Yeeun, Sunye, Sunmi, Hyuna,
-          and Sohee. After Hyuna's departure in July, Yubin was added into the group prior to the release of their debut studio
-          album, The Wonder Years (2007). The album spawned the hit single "Tell Me", which topped various South Korean music
-          charts.
-        </Text>
+        <Text>{event?.description}</Text>
 
         <InfoBoxes>
-          <InfoBox>
+          {event?.language && <InfoBox>
             <InfoBoxIcon>
-              <Image
-                src="/images/language.svg"
-                alt="404 Not_found"
-              />
+              <IoLanguageOutline size={30} />
             </InfoBoxIcon>
             <InfoBoxText>
               <Label>Language</Label>
-              <Value>English</Value>
+              <Value>{event?.language}</Value>
             </InfoBoxText>
-          </InfoBox>
-          <InfoBox>
+          </InfoBox>}
+          {event?.ageRequirement && <InfoBox>
             <InfoBoxIcon>
-              <Image
-                src="/images/eligible.svg"
-                alt="404 Not_found"
-              />
+              <FaPeopleRobbery size={25} />
             </InfoBoxIcon>
             <InfoBoxText>
               <Label>Best Suited For Ages</Label>
-              <Value>21 yrs & above</Value>
+              <Value>{event?.ageRequirement} yrs & above</Value>
             </InfoBoxText>
-          </InfoBox>
+          </InfoBox>}
         </InfoBoxes>
 
         <Venue>
           <SectionTitle>Venue</SectionTitle>
           <VenueContainer>
-            <Location>Sri Kanteerava Outdoor Stadium, Bengaluru</Location>
-            <Direction><CiLocationOn /> Get Directions</Direction>
+            <Location>{`${event?.venue?.address}, ${event?.venue?.city}`}</Location>
+            <Direction onClick={goToDirection}>
+              <CiLocationOn /> Get Directions
+            </Direction>
           </VenueContainer>
         </Venue>
 
@@ -87,9 +84,11 @@ const AboutEvent = () => {
           </ExpendIcon>
         </Header>
         <UnOrderList>
-          {(!isExpanded ? TERMS_AND_CONDITIONS.slice(0, 2) : TERMS_AND_CONDITIONS).map((data: any) => (
-            <ListItem key={data.id}>{data.label}</ListItem>
-          ))}
+          {(!isExpanded
+            ? event?.termsAndConditions?.slice(0, 2)
+            : event?.termsAndConditions)?.map((data: string, index: number) => (
+              <ListItem key={index}>{data}</ListItem>
+            ))}
         </UnOrderList>
       </Section>
 

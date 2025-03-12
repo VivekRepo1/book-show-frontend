@@ -1,3 +1,5 @@
+export const BASE_URL = "http://localhost:8000/api/";
+
 export const NAV_LINKS = [
     { text: 'Events', to: '/events' },
     { text: 'About us', to: '/about-us' },
@@ -12,7 +14,7 @@ export const FOOTER_LINK = [
     { id: 4, text: "Contact", to: '/contact' },
 ];
 
-export const LOCATIONS = ['Chandigarh', 'Bengaluru', 'Delhi'];
+export const LOCATIONS = ['Chandigarh', 'Bengaluru', 'Delhi', 'Hisar'];
 
 // UPCOMING/PUBLIC EVENTS MOCK DATA
 export const EVENTS_DATA = [
@@ -22,6 +24,7 @@ export const EVENTS_DATA = [
         category: "Music",
         title: "Wonder Girls 2025 | Bangalore",
         date: "Feb 8",
+        isoDate: "2025-02-08",
         time: "03PM - 09PM",
         location: "Sri Kanteerava Outdoor Stadium, Bengaluru",
         price: 1599,
@@ -32,6 +35,7 @@ export const EVENTS_DATA = [
         category: "Music",
         title: "JYJ 2025 JYJ Worldwide | Mumbai",
         date: "Feb 15",
+        isoDate: "2025-02-15",
         time: "06PM - 11PM",
         location: "Wankhede Stadium, Mumbai",
         price: 1999,
@@ -42,6 +46,7 @@ export const EVENTS_DATA = [
         category: "Theater",
         title: "Super Junior SM Town | New Delhi",
         date: "Feb 15",
+        isoDate: "2025-02-15",
         time: "06PM - 11PM",
         location: "Jawaharlal Nehru Stadium, New Delhi",
         price: 1699,
@@ -52,6 +57,7 @@ export const EVENTS_DATA = [
         category: "Music",
         title: "Royal Stag Boombox | Gurugram",
         date: "Feb 8",
+        isoDate: "2025-02-08",
         time: "03PM - 06PM",
         location: "Huda Ground, Gurugram",
         price: 999,
@@ -62,6 +68,7 @@ export const EVENTS_DATA = [
         category: "Workshop",
         title: "The Art Of Intimacy Workshop | Delhi",
         date: "Mar 08",
+        isoDate: "2025-03-08",
         time: "10AM - 06PM",
         location: "Zorba The Buddha, Delhi",
         price: 5000,
@@ -72,6 +79,7 @@ export const EVENTS_DATA = [
         category: "Workshop",
         title: "AR VR Workshop | Chandigarh",
         date: "Feb 08 - Feb 09",
+        isoDate: "2025-02-08",
         time: "12:30PM - 6:30PM",
         location: "STEAM Varsity Makerspace, Chandigarh",
         price: 2499,
@@ -151,3 +159,33 @@ export const EVENT_INFO = [
         label: "Easy to start selling tickets directly from your website and facebook without developers."
     },
 ];
+
+// Email Validation
+export const isEmailValid = (email: string): boolean => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+};
+
+// Phone Number Validation
+export const isPhoneNumberValid = (phoneNumber: string): boolean => {
+    // const phoneRegex = /^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/im;
+    // return phoneRegex.test(phoneNumber);
+
+    const phoneRegex = /^[0-9]{10}$/;
+    return phoneRegex.test(phoneNumber);
+};
+
+export const formatDateAndTime = (dateString: Date, type: string) => {
+    const date = new Date(dateString);
+
+    if (type === "month") {
+        // Return the month and day in the format "Feb 8"
+        return date.toLocaleString('en-US', { month: 'short', day: 'numeric' });
+    } else if (type === "time") {
+        // Return the time in 12-hour format with AM/PM (e.g., "09:00 AM")
+        return date.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
+    } else {
+        // If no valid type is passed, return the full date
+        return date.toLocaleString('en-US');
+    }
+};

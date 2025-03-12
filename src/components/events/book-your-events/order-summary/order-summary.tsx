@@ -34,7 +34,7 @@ import {
     TicketContainer,
     BackButton
 } from './styles';
-import { TICKET_TYPES } from '../constants';
+import { TICKET_TYPES } from '../../../constants';
 
 const OrderSummary = () => {
     const location = useLocation();

@@ -59,7 +59,12 @@ const Navbar = () => {
 
           <MobileLocation>
             <CiLocationOn />
-            <Dropdown label="Hisar" options={LOCATIONS} selectedValue={location} onSelect={handleSelect} />
+            <Dropdown
+              label="Location"
+              options={LOCATIONS}
+              selectedValue={filters.city}
+              onSelect={(value) => setFilters({ city: value })}
+            />
           </MobileLocation>
         </LeftSection>
 
@@ -68,11 +73,11 @@ const Navbar = () => {
         </Hamburger>
 
         <NavLinks $isOpen={isMobileMenuOpen}>
-          {NAV_LINKS.map((link, index) => (
+          {/* {NAV_LINKS.map((link, index) => (
             <NavLink key={index} to={link.to} $isActive={pathname === link.to} onClick={() => setIsMobileMenuOpen(false)}>
               {link.text}
             </NavLink>
-          ))}
+          ))} */}
 
           {/* <DesktopLocation>
             <CiLocationOn />
@@ -85,16 +90,16 @@ const Navbar = () => {
             <Dropdown
               label="Location"
               options={LOCATIONS}
-              selectedValue={filters.location}
-              onSelect={(value) => setFilters({ location: value })}
+              selectedValue={filters.city}
+              onSelect={(value) => setFilters({ city: value })}
             />
           </DesktopLocation>
 
           <EventButton onClick={() => navigate("/list-your-event")}>List your event</EventButton>
 
-          <ProfileIcon>
+          {/* <ProfileIcon>
             <HiOutlineUserCircle size={30} />
-          </ProfileIcon>
+          </ProfileIcon> */}
         </NavLinks>
       </Container>
     </NavbarContainer>

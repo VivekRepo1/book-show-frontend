@@ -108,7 +108,6 @@ const ConfirmationDetails = () => {
           </QRSection>
         </TicketWrapper>
 
-
         <ShareContainer>
           <IconContainer>
             <IconLink

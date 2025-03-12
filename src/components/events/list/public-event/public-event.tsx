@@ -1,28 +1,45 @@
 import styled from "styled-components";
 
-import { EVENTS_DATA } from "../../../constants";
+import { formatDateAndTime } from "../../../constants";
 import EventCard from "../../../common/event-card/event-card";
 
-const PublicEvent = () => (
-  <Container>
-    <SubContainer>
-      <Title>Public Events</Title>
-      <GridContainer>
-        {EVENTS_DATA.map(event => (
-          <EventCard
-            key={event.id}
-            imageUrl={event.imageUrl}
-            title={event.title}
-            date={event.date}
-            time={event.time}
-            eventId={event.id}
-            location={event.location}
-          />
-        ))}
-      </GridContainer>
-    </SubContainer>
-  </Container>
-);
+const PublicEvent = ({ events }) => {
+
+  if (events?.length === 0) {
+    return (
+      <Container>
+        <EmptyMessage>No upcoming events available</EmptyMessage>
+      </Container>
+    );
+  }
+
+
+  return (
+    <Container>
+      <SubContainer>
+        <Title>Public Events</Title>
+        <GridContainer>
+          {events
+            ?.filter(event => event.isPublic === true)
+            .map(event => (
+              <EventCard
+                key={event._id}
+                eventId={event._id}
+                imageUrl={event?.images?.banner}
+                category={event.category}
+                title={`${event.title} | ${event.venue.city}`}
+                date={formatDateAndTime(event.startTime, "month")}
+                time={`${formatDateAndTime(event.startTime, "time")}
+              ${event.endTime ? ` - ${formatDateAndTime(event.endTime, "time")}` : ""}`}
+                location={`${event.venue.address}, ${event.venue.city}`}
+
+              />
+            ))}
+        </GridContainer>
+      </SubContainer>
+    </Container>
+  )
+};
 
 export default PublicEvent;
 
@@ -69,4 +86,15 @@ const GridContainer = styled.div`
   & > * {
     width: 100%;
   }
+`;
+
+const EmptyMessage = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #555;
+  text-align: center;
 `;

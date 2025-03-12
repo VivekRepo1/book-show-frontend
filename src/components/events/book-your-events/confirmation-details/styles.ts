@@ -55,22 +55,6 @@ export const InfoSection = styled.div`
       padding: 15px;
     }
 
-  // &::before {
-  //   content: '';
-  //   position: absolute;
-  //   top: -20px;
-  //   right: -20px;
-  //   width: 40px;
-  //   height: 40px;
-  //   background: #f0f0f0;
-  //   border-radius: 50%;
-  //   z-index: 1;
-
-  //   @media (max-width: 768px) {
-  //     display: none;
-  //   }
-  // }
-
   &::after {
     content: '';
     position: absolute;
@@ -114,22 +98,6 @@ export const QRSection = styled.div`
       transform: translateX(-50%);
     }
   }
-
-  // &::after {
-  //   content: '';
-  //   position: absolute;
-  //   bottom: -20px;
-  //   left: -20px;
-  //   width: 40px;
-  //   height: 40px;
-  //   background: #f0f0f0;
-  //   border-radius: 50%;
-  //   z-index: 1;
-
-  //   @media (max-width: 768px) {
-  //     display: none;
-  //   }
-  // }
 
   @media (max-width: 768px) {
     width: auto;
@@ -218,7 +186,6 @@ export const InfoItem = styled.div<{ alignRight?: boolean }>`
 `;
 
 export const Container = styled.div`
-  // background: #f5f5f5;
   border-radius: 20px;
   width: 100%;
   display: flex;

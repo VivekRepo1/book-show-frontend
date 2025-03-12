@@ -101,9 +101,18 @@ export const Label = styled.label`
   display: flex;
 `;
 
-export const Input = styled.input`
+export const ErrorMessage = styled.span`
+    color: red;
+    font-size: 12px;
+    margin-top: 4px;
+    display: block;
+    align-self : flex-start;
+    padding-left : 5px;
+`;
+
+export const Input = styled.input<{$hasError: boolean}>`
   padding: 8px 12px;
-  border: 1px solid #ddd;
+  border: 2px solid ${({ $hasError }) => ($hasError ? 'red' : '#ddd')};
   border-radius: 6px;
   font-size: 14px;
   color: #333;
@@ -153,7 +162,6 @@ export const CheckboxLabel = styled.label`
   @media (max-width: 480px){
     font-size: 12px;
   }
-//   line-height: 1.4;
 `;
 
 export const TermsLink = styled.span`
@@ -167,7 +175,6 @@ export const TermsLink = styled.span`
 `;
 
 export const ContinueButton = styled.button`
-
   background-color: ${({ disabled }) => (disabled ? '#d3d3d3' : '#2842b1')};
   color: ${({ disabled }) => (disabled ? '#888' : '#fff')};
   cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
@@ -181,7 +188,7 @@ export const ContinueButton = styled.button`
   margin-bottom: 16px;
 
   &:hover {
-    background: #233693;
+    background: ${({ disabled }) => disabled ? "#d3d3d3" : "#233693"};
   }
 `;
 
