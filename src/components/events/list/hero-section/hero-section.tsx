@@ -14,7 +14,11 @@ import {
 import { formatDateAndTime } from "../../../constants";
 
 const EventPage = ({ event }) => {
-  const navigate = useNavigate();
+
+  const handleBuyTicket = (e: any) => {
+    e.stopPropagation();
+    window.open(`${event.bookingUrl}`, "_blank");
+  };
 
   return (
     <Container>
@@ -38,7 +42,7 @@ const EventPage = ({ event }) => {
             <FaMapMarkerAlt />
             <span style={{ fontSize: 12, lineHeight: "16px" }}>{event?.venue?.address}: {event?.venue?.city}</span>
           </EventDetail>
-          <BuyNow onClick={() => navigate(`/choose-ticket/${1}`)}>Buy Now</BuyNow>
+          <BuyNow onClick={handleBuyTicket}>Buy Now</BuyNow>
         </EventCard>
       </SubContainer>
     </Container>
