@@ -91,3 +91,9 @@ export const BuyButton = styled.button`
     background: #1c2f6e;
   }
 `;
+
+export const ComingSoon = styled.div`
+  margin: 17px 0px;
+  color: #6A6A6A;
+  font-weight: 500
+`;

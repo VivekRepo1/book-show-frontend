@@ -2,25 +2,27 @@ import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { CiTimer } from "react-icons/ci";
 import { FaXTwitter } from "react-icons/fa6";
-import { MdCurrencyRupee } from "react-icons/md";
+import { MdCurrencyRupee, MdPhone } from "react-icons/md";
 import { FaLink } from 'react-icons/fa';
 import { FaFacebookF, FaCalendarAlt, FaMapMarkerAlt } from "react-icons/fa";
 
-import { EVENTS_DATA, formatDateAndTime } from "../../../constants";
+import { formatDateAndTime } from "../../../constants";
 import {
     BuyButton,
     CardContent,
+    ComingSoon,
     Container,
     CopyLinkButton,
     EventDetail,
     IconContainer,
     IconLink,
-    NotFound,
+    MoreInfo,
     PriceRow,
     PriceTag,
     Section,
     ShareContainer,
     ShareText,
+    Strong,
     Title
 } from "./styles";
 import Carousel from "./carousel";
@@ -30,24 +32,13 @@ const BasicInfo = ({ event }) => {
     const navigate = useNavigate();
     const [copied, setCopied] = useState(false);
 
-    const eventDetails = EVENTS_DATA.find(event => event.id === Number(id));
-
-    // if (!eventDetails) {
-    //     return (
-    //         <NotFound>
-    //             Oops! Event Not Found
-    //         </NotFound>
-    //     );
-    // }
-
     const eventURL = window.location.href;
-    // const eventTitle = encodeURIComponent(eventDetails.title);
     const twitterDMURL = `https://twitter.com/messages/compose?text=${encodeURIComponent(eventURL)}`;
-    const facebookMessengerURL = `https://www.facebook.com/dialog/send?link=${encodeURIComponent(eventURL)}&app_id=YOUR_APP_ID&redirect_uri=${encodeURIComponent(eventURL)}`;
+    const facebookShareURL = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(eventURL)}`;
 
     const handleCopyLink = async () => {
         try {
-            await navigator.clipboard.writeText(window.location.href);
+            await navigator?.clipboard?.writeText(window.location.href);
             setCopied(true);
             setTimeout(() => setCopied(false), 2000);
         } catch (err) {
@@ -55,28 +46,47 @@ const BasicInfo = ({ event }) => {
         }
     };
 
+    const handleBuyTicket = (e: any) => {
+        e.stopPropagation();
+        window.open(`${event?.bookingUrl}`, "_blank");
+    };
+
     return (
         <Container>
-            {/* <Image src={eventDetails.imageUrl} alt="error_404" /> */}
             <Carousel slides={event?.images?.gallery} />
             <Section>
                 <CardContent>
                     <Title>{event?.title} | {event?.venue?.city}</Title>
-                    <EventDetail>
-                        <FaCalendarAlt /> <span>{formatDateAndTime(event?.startTime, "month")}</span>
-                        <CiTimer />
-                        <span>
-                            {`${formatDateAndTime(event?.endTime, "time")} - ${formatDateAndTime(event?.startTime, "time")}`}
-                        </span>
-                    </EventDetail>
-                    <EventDetail>
-                        <FaMapMarkerAlt />
-                        <span>{`${event?.venue.address}, ${event?.venue.city}`}</span>
-                    </EventDetail>
-                    <PriceRow>
-                        <PriceTag><MdCurrencyRupee size={15} />{event?.price}</PriceTag>
-                        <BuyButton onClick={() => navigate(`/choose-ticket/${id}`)}>Buy Ticket</BuyButton>
-                    </PriceRow>
+                    {event?.isComingSoon ? <>
+                        <EventDetail>
+                            <FaCalendarAlt /> <span>{formatDateAndTime(event?.startTime, "month")}</span>
+                            <CiTimer />
+                            <span>
+                                {`${formatDateAndTime(event?.startTime, "time")} - ${formatDateAndTime(event?.endTime, "time")}`}
+                            </span>
+                        </EventDetail>
+                        <EventDetail>
+                            <FaMapMarkerAlt />
+                            <span>{`${event?.venue.address}, ${event?.venue.city}`}</span>
+                        </EventDetail></>
+                        : <ComingSoon> Coming Soon... </ComingSoon>}
+                    {event.price ? (
+                        <PriceRow>
+                            <PriceTag>
+                                <MdCurrencyRupee size={15} />
+                                {event.price}
+                            </PriceTag>
+                            <BuyButton onClick={handleBuyTicket}>Buy Ticket</BuyButton>
+                        </PriceRow>
+                    ) : (
+                        <MoreInfo>
+                            For more information:
+                            <Strong>
+                                <MdPhone size={15} />
+                                {event?.organizer?.contact}
+                            </Strong>
+                        </MoreInfo>
+                    )}
                 </CardContent>
                 <ShareContainer>
                     <ShareText>Share this event</ShareText>
@@ -90,7 +100,7 @@ const BasicInfo = ({ event }) => {
                             <FaXTwitter />
                         </IconLink>
                         <IconLink
-                            href={facebookMessengerURL}
+                            href={facebookShareURL}
                             target='_blank'
                             rel="noopener noreferrer"
                             $isFacebook={true}

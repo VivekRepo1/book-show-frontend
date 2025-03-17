@@ -25,7 +25,7 @@ export const Section = styled.div`
 
 export const CardContent = styled.div`
     border: 1px solid #A3A3A3;
-    padding: 0px 20px 10px;
+    padding: 0px 20px 0px;
     border-radius: 6px;
     background-color: #FDFDFD;
 `;
@@ -56,6 +56,29 @@ export const EventDetail = styled.p`
   }
 `;
 
+export const ComingSoon = styled.div`
+  font-weight: 500;
+  color: #6A6A6A;
+`;
+
+export const MoreInfo = styled.p`
+  display: flex;
+  font-size: 14px;
+  color: #6A6A6A;
+  margin-top: 16px;
+
+  svg {
+    color: #6A6A6A;
+    margin: 0 6px 0 10px;
+  }
+`;
+
+export const Strong = styled.strong`
+    font-weight: bold;
+    display: flex;
+`;
+
+
 export const Title = styled.p`
   font-size: 16px;
   font-weight: bold;
@@ -67,7 +90,7 @@ export const PriceRow = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 12px;
+  margin: 12px 0px;
 `;
 
 export const PriceTag = styled.span`

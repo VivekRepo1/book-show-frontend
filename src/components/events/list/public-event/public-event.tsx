@@ -32,7 +32,7 @@ const PublicEvent = ({ events }) => {
                 time={`${formatDateAndTime(event.startTime, "time")}
               ${event.endTime ? ` - ${formatDateAndTime(event.endTime, "time")}` : ""}`}
                 location={`${event.venue.address}, ${event.venue.city}`}
-
+                isComingSoon={event.isComingSoon}
               />
             ))}
         </GridContainer>

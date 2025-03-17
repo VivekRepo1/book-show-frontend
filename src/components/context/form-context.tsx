@@ -25,7 +25,7 @@ interface FormContextProps {
 const ListYourEventFormContext = createContext<FormContextProps | undefined>(undefined);
 
 export const FormProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-    const [step , setStep] = useState<number>(1);
+    const [step, setStep] = useState<number>(1);
     const [formData, setFormData] = useState<FormData>({
         name: '',
         email: '',
@@ -55,7 +55,7 @@ export const FormProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const updateFormData = (id: string, value: string) => {
         setFormData((prev) => ({
             ...prev,
-            [id]: value.trimStart(), 
+            [id]: value.trimStart(),
         }));
     };
 
@@ -70,7 +70,7 @@ export const FormProvider: React.FC<{ children: React.ReactNode }> = ({ children
     };
 
     return (
-        <ListYourEventFormContext.Provider value={{ formData, setFormData, resetFormData, step , setStep , updateFormData, validateField }}>
+        <ListYourEventFormContext.Provider value={{ formData, setFormData, resetFormData, step, setStep, updateFormData, validateField }}>
             {children}
         </ListYourEventFormContext.Provider>
     );

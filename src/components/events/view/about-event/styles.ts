@@ -38,6 +38,14 @@ export const Text = styled.p`
   line-height: 1.6;
 `;
 
+export const ComingSoon = styled.div`
+  font-weight: 500;
+  color: #6A6A6A;
+  margin: 50px 0px;
+  display: flex;
+  justify-content: center;
+`;
+
 export const InfoBoxes = styled.div`
   display: flex;
   justify-content: space-between;

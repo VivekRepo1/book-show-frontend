@@ -17,7 +17,7 @@ import {
 import { useEventFilter } from "../../../context/event-filter-context";
 
 export const LOCATIONS = ['Hisar', 'Delhi', 'Gurugram', 'Mumbai'];
-export const EVENT_CATEGORIES = ['Music', 'Theater', 'Festival', 'Comedy'];
+export const EVENT_CATEGORIES = ['Music', 'Theater', 'Festival', 'Comedy', 'Exhibition', 'Devotion'];
 export const DATES = ['Today', 'Tomorrow', 'This Weekend'];
 
 const SearchAndFilter = () => {
@@ -26,7 +26,7 @@ const SearchAndFilter = () => {
 
     const debouncedSearchQuery = useDebounce(searchQuery, 1000);
 
-    const isFilterApplied = filters.searchQuery || filters.category || filters.city;
+    const isFilterApplied = filters.searchQuery || filters.category || filters.city || filters.startTime;
 
     const clearFilters = () => {
         setFilters({

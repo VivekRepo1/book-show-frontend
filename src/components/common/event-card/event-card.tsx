@@ -7,6 +7,7 @@ import {
   CardContainer,
   CardContent,
   CategoryTag,
+  ComingSoon,
   EventDetail,
   EventImage,
   EventTitle,
@@ -26,6 +27,7 @@ const EventCard = ({
   price,
   buttonLabel,
   bookingUrl,
+  isComingSoon,
 }: any) => {
   const navigate = useNavigate();
 
@@ -42,14 +44,18 @@ const EventCard = ({
       </ImageContainer>
       <CardContent>
         <EventTitle>{title}</EventTitle>
-        <EventDetail>
-          <FaCalendarAlt /> <span>{date}</span>
-          <CiTimer /> <span>{time}</span>
-        </EventDetail>
-        <EventDetail>
-          <FaMapMarkerAlt />
-          <span>{location}</span>
-        </EventDetail>
+        {!isComingSoon ?
+          <>
+            <EventDetail>
+              <FaCalendarAlt /> <span>{date}</span>
+              <CiTimer /> <span>{time}</span>
+            </EventDetail>
+            <EventDetail>
+              <FaMapMarkerAlt />
+              <span>{location}</span>
+            </EventDetail>
+          </>
+          : <ComingSoon>Coming Soon...</ComingSoon>}
         {price && (
           <PriceRow>
             <PriceTag>₹{price}</PriceTag>

@@ -1,4 +1,5 @@
-export const BASE_URL = "http://45.79.121.211:8003/api/";
+export const BASE_URL = "http://45.79.121.211:8003/api/";  // Staging URL
+// export const BASE_URL = "http://localhost:8003/api/";  // Staging URL
 
 export const NAV_LINKS = [
     { text: 'Events', to: '/events' },

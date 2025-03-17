@@ -9,7 +9,7 @@ import EventList from './components/events/list/events';
 import EventDetails from './components/events/view/event-details';
 import { EventFilterProvider } from './components/context/event-filter-context';
 import { FormProvider } from './components/context/form-context';
-// import ListYourEvent from './components/events/list-your-event';
+import ListYourEvent from './components/events/list-your-event';
 // import ChooseTickets from './components/events/book-your-events/choose-tickets/choose-tickets';
 // import OrderSummary from './components/events/book-your-events/order-summary/order-summary';
 // import PurchaseTickets from './components/events/book-your-events/purchase-tickets/purchase-tickets';
@@ -32,7 +32,7 @@ const routes = [
   // { path: '/checkout/:id/summary', element: <OrderSummary /> },
   // { path: '/:id/purchase-tickets', element: <PurchaseTickets /> },
   // { path: '/confirmation', element: <ConfirmationDetails /> },
-  // { path: '/list-your-event', element: <ListYourEvent /> },
+  { path: '/list-your-event', element: <ListYourEvent /> },
   // { path: '/about-us', element: <ComingSoon /> },
   // { path: '/contact', element: <ComingSoon /> },
   // { path: '/hisar', element: <ComingSoon /> },

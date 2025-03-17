@@ -6,6 +6,7 @@ import { IoLanguageOutline } from "react-icons/io5";
 import { FaPeopleRobbery } from "react-icons/fa6";
 
 import {
+  ComingSoon,
   Container,
   Direction,
   ExpendIcon,
@@ -41,7 +42,10 @@ const AboutEvent = ({ event }: any) => {
 
       <Section $isConditions={false}>
         <SectionTitle>About the event</SectionTitle>
-        <Text>{event?.description}</Text>
+        {event?.isComingSoon
+          ? <Text>{event?.description}</Text>
+          : <ComingSoon>Coming Soon...</ComingSoon>
+        }
 
         <InfoBoxes>
           {event?.language && <InfoBox>
