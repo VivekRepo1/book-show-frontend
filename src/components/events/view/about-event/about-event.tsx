@@ -42,7 +42,7 @@ const AboutEvent = ({ event }: any) => {
 
       <Section $isConditions={false}>
         <SectionTitle>About the event</SectionTitle>
-        {event?.isComingSoon
+        {!event?.isComingSoon
           ? <Text>{event?.description}</Text>
           : <ComingSoon>Coming Soon...</ComingSoon>
         }

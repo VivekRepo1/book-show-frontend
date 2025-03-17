@@ -57,7 +57,7 @@ const BasicInfo = ({ event }) => {
             <Section>
                 <CardContent>
                     <Title>{event?.title} | {event?.venue?.city}</Title>
-                    {event?.isComingSoon ? <>
+                    {!event?.isComingSoon ? <>
                         <EventDetail>
                             <FaCalendarAlt /> <span>{formatDateAndTime(event?.startTime, "month")}</span>
                             <CiTimer />
